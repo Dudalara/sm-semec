@@ -32,6 +32,29 @@ RUN docker-php-ext-install gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+
+# NODEJS NVM ---------------------------------------------------------------------------------------------------------------
+ARG NODE_VERSION=12.14.1
+ARG NVM_DIR=/usr/local/nvm
+
+# https://github.com/creationix/nvm#install-script
+RUN mkdir $NVM_DIR && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+
+# add node and npm to path so the commands are available
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+# confirm installation
+RUN node -v
+RUN npm -v
+# end NODEJS -----------------------------------------------------------------------------------------------------------
+
+
+# YARN -----------------------------------------------------------------------------------------------------------------
+RUN npm install -g yarn@berry
+# end YARN -------------------------------------------------------------------------------------------------------------
+
+
 # Add user for laravel application
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
