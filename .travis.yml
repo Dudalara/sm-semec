@@ -1,5 +1,7 @@
 sudo: required
 
+language: php
+
 env:
   DOCKER_COMPOSE_VERSION: 1.4.2
 
@@ -8,7 +10,13 @@ services:
 
 before_install:
   - docker run --rm -v $(pwd):/app composer install
+  - cp .env.travis .env
 
 script:
   - docker-compose up -d
   - docker-compose ps
+  - docker-compose exec db mysql -u root -psm-semec -e 'CREATE DATABASE sm_semec_test;'
+  - docker-compose exec app php artisan cache:clear
+  - docker-compose exec app php artisan config:clear
+  - docker-compose exec app php artisan migrate
+  - docker-compose exec app ./vendor/bin/phpunit
