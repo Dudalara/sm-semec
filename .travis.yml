@@ -1,0 +1,14 @@
+sudo: required
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.4.2
+
+services:
+  - docker
+
+before_install:
+  - docker run --rm -v $(pwd):/app composer install
+
+script:
+  - docker-compose up -d
+  - docker-compose ps
