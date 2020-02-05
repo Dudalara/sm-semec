@@ -12,7 +12,7 @@ services:
 
 before_install:
   - docker run --rm -v $(pwd):/app composer install
-  - chown -R $USER:$USER ./
+  - sudo chown -R $USER:$USER ./
   - cp .env.travis .env
 
 script:
