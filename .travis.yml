@@ -9,20 +9,18 @@ services:
   - docker
 
 before_install:
-  - bash -c 'echo $USER'
-  - bash -c 'echo whoami'
   - docker run --rm -v $(pwd):/app composer install
-  #- sudo chown -R $USER:$USER ./
+  - sudo chown -R $USER:$USER ./
   - cp .env.travis .env
-  - cp docker-compose.yml.travis docker-compose.yml
-  - ls -la
+  #- cp docker-compose.yml.travis docker-compose.yml
+  #- ls -la
   #- touch ./storage/logs/laravel.log
 
 script:
   - docker-compose up -d
   - docker-compose ps
   - docker-compose exec app whoami
-  #- docker-compose exec app php artisan migrate
-  #- docker-compose exec app php artisan key:generate
-  #- docker-compose exec app php artisan db:seed
+  - docker-compose exec app php artisan key:generate
+  - docker-compose exec app php artisan migrate
+  - docker-compose exec app php artisan db:seed
   - docker-compose exec app ls -la
