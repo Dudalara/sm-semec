@@ -42,7 +42,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_DATABASE: sm_semec
-      MYSQL_ROOT_PASSWORD: sm-semec
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
