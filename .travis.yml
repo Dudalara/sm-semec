@@ -9,14 +9,13 @@ services:
   - docker
 
 before_install:
-  - echo $USER
+  - bash -c 'echo $USER'
+  - bash -c 'echo whoami'
   - docker run --rm -v $(pwd):/app composer install
   #- sudo chown -R $USER:$USER ./
   - cp .env.travis .env
   - cp docker-compose.yml.travis docker-compose.yml
   - touch ./storage/logs/laravel.log
-  - echo whoami
-  - echo $USER
 
 script:
   - docker-compose up -d
