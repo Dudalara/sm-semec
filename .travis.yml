@@ -15,7 +15,8 @@ before_install:
   #- sudo chown -R $USER:$USER ./
   - cp .env.travis .env
   - cp docker-compose.yml.travis docker-compose.yml
-  - touch ./storage/logs/laravel.log
+  - ls -la
+  #- touch ./storage/logs/laravel.log
 
 script:
   - docker-compose up -d
@@ -24,4 +25,4 @@ script:
   #- docker-compose exec app php artisan migrate
   #- docker-compose exec app php artisan key:generate
   #- docker-compose exec app php artisan db:seed
-  #- docker-compose exec app
+  - docker-compose exec app ls -la
