@@ -43,6 +43,7 @@ services:
     environment:
       MYSQL_DATABASE: sm_semec
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
