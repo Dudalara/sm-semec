@@ -9,10 +9,12 @@ services:
   - docker
 
 before_install:
+  - echo $USER
   - docker run --rm -v $(pwd):/app composer install
-  - sudo chown -R $USER:$USER ./
+  #- sudo chown -R $USER:$USER ./
   - cp .env.travis .env
   - cp docker-compose.yml.travis docker-compose.yml
+  - touch ./storage/logs/laravel.log
 
 script:
   - docker-compose up -d
