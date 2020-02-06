@@ -18,11 +18,9 @@ before_install:
   - docker-compose exec app php artisan key:generate
   - docker-compose exec app php artisan config:cache
   - docker-compose exec app php artisan cache:clear
-  - sleep 5
+  - sleep 15
 
 script:
-  - docker-compose exec db mysql -u root -e 'show databases;'
-  - docker-compose exec db mysql -u root -e 'create database sm_semec;'
   - docker-compose exec db mysql -u root -e 'show databases;'
   - docker-compose exec app php artisan migrate
   - docker-compose exec app php artisan db:seed
